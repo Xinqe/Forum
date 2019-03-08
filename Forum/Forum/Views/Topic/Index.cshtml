@@ -1,0 +1,115 @@
+﻿@model Forum.Models.ViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLoggedIn.cshtml";
+}
+
+<nav class="navTopic">
+    <ul>
+        <li><h1>Topics</h1></li>
+        <li>@*<a href="TopicCreate.php" class="inputButtons">Create topic</a>*@ 
+        @Html.ActionLink("Create Topic", "Create", "Topic", new {@class = "inputButtons" })</li>
+    </ul>
+</nav>
+
+<div class="responsiveContainer">
+<table class="DataPresenter">
+        
+
+        <tr>
+            <th>Posted by</th>
+            <th>Article</th>
+            <th>Post date</th>
+            <th></th>
+        </tr>
+
+    @foreach(var topic in Model.Topics)
+    {
+        <tr>
+            <td>@topic.ForumUser.Username</td>
+            <td class="TopicSize">@Html.ActionLink(topic.ArticleName, "Topic", new {topicID = topic.ID })</td>
+            <td>@topic.PostDate</td>
+            <td>
+               @if(@Session["UserID"].ToString()  == topic.UserID.ToString())
+               {
+                   @Html.ActionLink("Edit", "EditTopic", new {topicID = topic.ID}, new { @class = "inputButtons" })
+                   <p ></p>
+                   @Html.ActionLink("Delete", "DeleteTopic", new {topicID = topic.ID}, new {@class = "inputButtons" })
+               }
+            </td>
+        </tr>     
+     }
+
+
+    @*$result = $conn->query($SQLQuery);
+    if($result->num_rows > 0)
+    {
+    echo "
+    <div class="." responsiveContainer".">
+        ";
+        echo "<table class="." DataPresenter".">
+            ";
+
+            echo "
+            <tr>
+                <th>Posted by</th>
+                <th>Article</th>
+                <th>Post date</th>
+                <th></th>
+            </tr>";
+            while($row = $result->fetch_assoc())
+            {
+
+            $SQLUserID = "SELECT * FROM User WHERE ID = ".$row['UserID'].";"; // läser författaren
+            $resultUser = $conn->query($SQLUserID);
+            if($resultUser->num_rows > 0)
+            {
+            while($rowUser = $resultUser->fetch_assoc())
+            {
+            $username = $rowUser['Username'];
+            }
+            }
+
+            echo "
+            <tr>
+                <td>".$username." </td>
+                <td class="." TopicSize"."> <a href="." Topic.php?TopicID=".$row['ID'].">".$row['ArticleName']."</a>"."</td>
+                <td> ".$row['PostDate']." </td>
+                <td>
+                    ";
+
+                    if($row['UserID'] == $_SESSION['userID'])
+                    {
+
+                    echo "<a href="." DeleteTopicConfirm.php?TopicID=".$row['ID']." class="." inputButtons".">Delete   </a>";
+                    echo "<p> </p>";
+                    echo "<a href="." TopicEdit.php?TopicID=".$row['ID']." class="." inputButtons".">Edit         </a>";
+
+                    }
+
+                    echo "
+                </td>
+            </tr>";
+
+
+
+
+            }
+
+            echo "
+        </table>";
+        echo "
+    </div>";
+    }*@
+
+
+
+
+
+        
+
+    </table>
+</div>
+
+

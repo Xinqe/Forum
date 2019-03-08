@@ -1,0 +1,32 @@
+﻿@model Forum.Models.ForumUser
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+
+    <p>Type in information</p>
+    <p>Username:</p>
+
+    @*<input type="text" name="username" class="inputFields" required>*@
+    @Html.TextBoxFor(x => x.Username, new { @class = "inputFields", @required = "required" })
+    <br>
+    <p>Password:</p>
+    @*<input type="password" name="password" class="inputFields" id="pw" onkeyup='PasswordValidateLength();' required>*@
+    @Html.PasswordFor(x => x.UserPassword, new { @class = "inputFields", @required = "required", @onkeyup = "PasswordValidateLength();", @id = "pw"})
+    <br />
+    <p>Confirm password:</p>
+    <input type="password" name="passwordConfirm" class="inputFields" id="pw2" required>
+    @*@Html.PasswordFor(x => x.UserPassword, new { @class = "inputFields", @required = "required", @onkeyup = "PasswordValidateLength();" }) password matchning sker i javascript?*@
+    <br />
+    <br />
+    @*<a href="Home.php" class="inputButtons">Back</a>*@
+    @Html.ActionLink("Back", "Index", "Home", new { @class = "inputButtons" })
+    <input type="submit" value="Create account" class="inputButtons" id="submitButton">
+
+    <p id="errorMessage"></p>
+    @Html.ValidationSummary();
+    <br />
+}

@@ -1,0 +1,27 @@
+﻿@model Forum.Models.Topic
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutLoggedIn.cshtml";
+}
+
+<div class="responsiveContainer">
+    <p>Create topic</p>
+
+@using (Html.BeginForm())
+{ 
+
+        <p>Title of topic:</p>
+        @*<input type="text" name="articleName" class="inputFields" maxlength="60" required>*@
+        @Html.TextBoxFor(x => x.ArticleName, new { @class = "inputFields", @required = "required" })
+        <br>
+        <p>Content of topic:</p>
+        @*<textarea name="topicContent" maxlength="10000" required></textarea>*@
+        @Html.TextAreaFor(x => x.Content, new {@required = "required", @maxlength = "10000" })
+        <br />
+        @*<a class="inputButtons" href="Topics.php">Back</a>*@
+        @Html.ActionLink("Back", "Index", "Topic", new {@class = "inputButtons" })
+        <input type="submit" value="Create topic" class="inputButtons">
+
+}
+</div>
+

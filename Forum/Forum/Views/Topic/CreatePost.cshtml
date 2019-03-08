@@ -1,0 +1,28 @@
+﻿@model Forum.Models.Post
+@{
+    ViewBag.Title = "CreatePost";
+    Layout = "~/Views/Shared/_LayoutLoggedIn.cshtml";
+}
+
+@*echo "<form action="." PostCreation.php?TopicID=".$_GET['TopicID']." method="." post".">
+    <p>Content of the post:</p>";
+
+    //   echo "        <input type="." text"." name="." postContent"." class="." inputFields"." required>";
+    echo " <textarea name="." postContent"." maxlength="." 10000"." required></textarea>";
+
+    echo"<br />";
+    echo"<a href="." Topic.php?TopicID=".$_GET['TopicID']." class="." inputButtons"."> back</a>";
+    echo"<input type="." submit"." value="." Reply"." class="." inputButtons".">
+
+</form>";*@
+
+@using (@Html.BeginForm())
+{
+    <p>Content of the post:</p>
+    @Html.TextAreaFor(x => x.Content, new { @maxlength = "10000" , @required = "required"})
+    <br />
+    @Html.ActionLink("Back", "Topic", new {topicID = Model.TopicID}, new {@class = "inputButtons" })
+
+    <input type="submit" value="Create post" class="inputButtons" />
+}
+

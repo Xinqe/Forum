@@ -1,0 +1,81 @@
+﻿@model Forum.Models.ViewModel
+@{
+    ViewBag.Title = "Topic";
+    Layout = "~/Views/Shared/_LayoutLoggedIn.cshtml";
+}
+
+<nav class="navPost">
+    <ul>
+        <li><h2>Post info</h2></li>
+        <li>@*<?php echo "<a href="." TopicPostReply.php?TopicID=".$_GET['TopicID']." class="." inputButtons".">Reply</a>"; ?>*@
+        @*@foreach (var o in Model.Posts)
+        {
+        @Html.ActionLink("Reply", "CreatePost", new {topicIDString = Model.Topics.Select(x => x.ID)}, new { @class = "inputButtons" })
+        }*@
+            @foreach (var o in Model.Topics)
+            {
+                @Html.ActionLink("Reply", "CreatePost", new { topicID = o.ID }, new { @class = "inputButtons"})
+            }
+        </li>
+    </ul>
+</nav>
+
+<div class="responsiveContainer">
+    <table class="DataPresenter">
+
+
+        <tr>
+            <th>Posted by</th>
+            <th>Content</th>
+            <th></th>
+        </tr>
+
+        @foreach (var topic in Model.Topics)
+        {
+            <tr>
+                <td>@topic.ForumUser.Username <br /> @topic.PostDate</td>
+                <td class="TopicSize">@topic.Content</td>
+                <td>
+                    @*@if (@Session["UserID"].ToString() == topic.UserID.ToString())   behövs egentligen inte
+                    {
+                        @Html.ActionLink("Edit", "EditTopic", new { topicID = topic.ID }, new { @class = "inputButtons" })
+                        <p></p>
+                        @Html.ActionLink("Delete", "DeleteTopic", new { topicID = topic.ID }, new { @class = "inputButtons" })
+                    }*@
+                </td>
+
+            </tr>
+        }
+
+        @foreach (var post in Model.Posts)
+        {
+            <tr>
+                <td>@post.ForumUser.Username <br /> Posted: @post.PostDate</td>
+                <td class="TopicSize">@post.Content</td>
+                <td> @if (@Session["UserID"].ToString() == post.UserID.ToString())
+                {
+                    @Html.ActionLink("Edit", "EditPost", new { postID = post.ID }, new { @class = "inputButtons" })
+                    <p></p>
+                    @Html.ActionLink("Delete", "DeletePost", new { postID = post.ID }, new { @class = "inputButtons" })
+                }</td>
+
+            </tr>
+        }
+
+
+
+
+        
+
+    </table>
+
+
+    @foreach (var o in Model.Topics)
+    {
+        @Html.ActionLink("Reply", "CreatePost", new { topicID = o.ID }, new { @class = "inputButtons", @id = "ReplyLink" })
+    }
+</div>
+
+
+
+

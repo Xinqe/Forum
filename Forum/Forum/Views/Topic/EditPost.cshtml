@@ -1,0 +1,28 @@
+﻿@model Forum.Models.Post
+@{
+    ViewBag.Title = "EditPost";
+    Layout = "~/Views/Shared/_LayoutLoggedIn.cshtml";
+}
+
+<div class="responsiveContainer">
+
+    @using (Html.BeginForm())
+    {
+        <p>Edit Content</p>
+        <p>Content of topic:</p>
+        @Html.TextAreaFor(Model => Model.Content, new { @required = "required", @maxlength = "10000", @value = $"{Model.Content}" })
+        <br />
+        @Html.ActionLink("Back", "Topic", "Topic",new {topicID = Model.TopicID }, new { @class = "inputButtons"})
+
+        @Html.HiddenFor(Model => Model.ID)
+        @Html.HiddenFor(Model => Model.UserID)
+        @Html.HiddenFor(Model => Model.PostDate)
+        @Html.HiddenFor(Model => Model.TopicID)
+
+        <input type="submit" value="Update topic" class="inputButtons" />
+
+
+
+    }
+
+</div>
